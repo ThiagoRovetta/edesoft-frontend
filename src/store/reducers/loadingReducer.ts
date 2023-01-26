@@ -1,23 +1,22 @@
-import { AnyAction } from 'redux';
 import produce from 'immer';
 
-import { LOADING } from '../constants';
+import { LoadingActions, loadingActionsTypes, loadingState } from '../../types';
 
-export const INITIAL_STATE = {
+export const INITIAL_STATE: loadingState = {
   isLoading: false,
 };
 
-export function loadingReducer(state = INITIAL_STATE, action: AnyAction) {
+export function loadingReducer(state = INITIAL_STATE, action: LoadingActions) {
   return produce(state, (draft) => {
     switch (action.type) {
-    case LOADING.LOADING_REQUEST: {
+    case loadingActionsTypes.LOADING_REQUEST: {
       break;
     }
-    case LOADING.SHOW_LOADING: {
+    case loadingActionsTypes.SHOW_LOADING: {
       draft.isLoading = true;
       break;
     }
-    case LOADING.HIDE_LOADING: {
+    case loadingActionsTypes.HIDE_LOADING: {
       draft.isLoading = false;
       break;
     }

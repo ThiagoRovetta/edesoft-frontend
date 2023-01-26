@@ -1,4 +1,4 @@
-import { LOADING } from '../constants';
+import { loadingActionsTypes } from '../../types';
 
 export interface SetLoadingAction {
   type: string;
@@ -7,19 +7,19 @@ export interface SetLoadingAction {
 
 export function setLoading(data: boolean) {
   return {
-    type: LOADING.LOADING_REQUEST,
+    type: loadingActionsTypes.LOADING_REQUEST,
     payload: data,
   };
 }
 
 export function showLoading() {
   return {
-    type: LOADING.SHOW_LOADING,
+    type: loadingActionsTypes.SHOW_LOADING,
   };
 }
 
 export function hideLoading() {
   return {
-    type: LOADING.HIDE_LOADING,
+    type: loadingActionsTypes.HIDE_LOADING,
   };
 }
