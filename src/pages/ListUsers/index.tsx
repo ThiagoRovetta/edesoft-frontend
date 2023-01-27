@@ -26,7 +26,7 @@ export function ListUsers() {
   return (
     <Container>
       <AddButtonContainer>
-        <Link to="/add_user">Adicionar usuário</Link>
+        <Link to="/add_user">Cadastrar usuário</Link>
       </AddButtonContainer>
 
       <Table users={users} />

@@ -1,5 +1,10 @@
+import { Form } from '../../components/Form';
+import { Container } from './styles';
+
 export function AddUser() {
   return (
-    <h1>ADICIONAR USUÁRIO</h1>
+    <Container>
+      <Form />
+    </Container>
   );
 }

@@ -28,6 +28,7 @@ export type LoadingActions =
 
 export type User = {
   id: number;
+  username: string;
   email: string;
   password: string;
   name: {
@@ -51,6 +52,9 @@ export enum usersActionsTypes {
   GET_ALL_USERS_REQUEST = 'GET_ALL_USERS_REQUEST',
   GET_ALL_USERS_SUCCESS = 'GET_ALL_USERS_SUCCESS',
   GET_ALL_USERS_FAILURE = 'GET_ALL_USERS_FAILURE',
+  CREATE_USER_REQUEST = 'CREATE_USER_REQUEST',
+  CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS',
+  CREATE_USER_FAILURE = 'CREATE_USER_FAILURE',
 }
 
 export interface usersState {
@@ -80,7 +84,33 @@ export type GetAllUsersFailure = {
   payload: GetAllUsersFailurePayload;
 };
 
+export interface CreateUserSuccessPayload {
+  user: User;
+}
+
+export interface CreateUserFailurePayload {
+  error: string;
+}
+
+export interface CreateUserRequest {
+  type: typeof usersActionsTypes.CREATE_USER_REQUEST;
+  payload: Omit<User, 'id'>;
+}
+
+export type CreateUserSuccess = {
+  type: typeof usersActionsTypes.CREATE_USER_SUCCESS;
+  payload: CreateUserSuccessPayload;
+};
+
+export type CreateUserFailure = {
+  type: typeof usersActionsTypes.CREATE_USER_FAILURE;
+  payload: CreateUserFailurePayload;
+};
+
 export type UsersActions =
   | GetAllUsersRequest
   | GetAllUsersSuccess
-  | GetAllUsersFailure;
+  | GetAllUsersFailure
+  | CreateUserRequest
+  | CreateUserSuccess
+  | CreateUserFailure;
