@@ -1,5 +1,8 @@
 import { Provider } from 'react-redux';
 import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { ToastContainer } from 'react-toastify';
+
+import 'react-toastify/dist/ReactToastify.css';
 
 import { store } from './store';
 import GlobalStyle from './styles/globalStyle';
@@ -14,6 +17,7 @@ export function App() {
     <BrowserRouter>
       <Provider store={store}>
         <GlobalStyle />
+        <ToastContainer />
         <Loading />
         <Routes>
           <Route path="/" element={<Layout />}>

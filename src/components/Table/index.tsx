@@ -1,5 +1,9 @@
+import { BiEdit } from 'react-icons/bi';
+import { MdDeleteOutline } from 'react-icons/md';
+import { Link } from 'react-router-dom';
+
 import { User } from '../../types';
-import { Container } from './styles';
+import { ActionsContainer, Container } from './styles';
 
 interface TableProps {
   users: User[]
@@ -16,6 +20,7 @@ const tableColumns = [
   'lat',
   'long',
   'phone',
+  'actions'
 ];
 
 export function Table({ users }: TableProps) {
@@ -41,6 +46,16 @@ export function Table({ users }: TableProps) {
             <td>{user.address.geolocation.lat}</td>
             <td>{user.address.geolocation.long}</td>
             <td>{user.phone}</td>
+            <td>
+              <ActionsContainer>
+                <Link to="/edit_user">
+                  <BiEdit />
+                </Link>
+                <Link to="/delete_user">
+                  <MdDeleteOutline />
+                </Link>
+              </ActionsContainer>
+            </td>
           </tr>
         ))}
       </tbody>
