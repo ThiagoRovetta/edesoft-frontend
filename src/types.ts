@@ -61,6 +61,9 @@ export enum usersActionsTypes {
   GET_ONE_USER_REQUEST = 'GET_ONE_USER_REQUEST',
   GET_ONE_USER_SUCCESS = 'GET_ONE_USER_SUCCESS',
   GET_ONE_USER_FAILURE = 'GET_ONE_USER_FAILURE',
+  DELETE_USER_REQUEST = 'DELETE_USER_REQUEST',
+  DELETE_USER_SUCCESS = 'DELETE_USER_SUCCESS',
+  DELETE_USER_FAILURE = 'DELETE_USER_FAILURE',
 }
 
 export interface usersState {
@@ -169,6 +172,33 @@ export type GetOneUserFailure = {
   payload: GetOneUserFailurePayload;
 };
 
+export interface DeleteUserRequestPayload {
+  id: number;
+}
+
+export interface DeleteUserSuccessPayload {
+  id: number;
+}
+
+export interface DeleteUserFailurePayload {
+  error: string;
+}
+
+export interface DeleteUserRequest {
+  type: typeof usersActionsTypes.DELETE_USER_REQUEST;
+  payload: DeleteUserRequestPayload;
+}
+
+export type DeleteUserSuccess = {
+  type: typeof usersActionsTypes.DELETE_USER_SUCCESS;
+  payload: DeleteUserSuccessPayload;
+};
+
+export type DeleteUserFailure = {
+  type: typeof usersActionsTypes.DELETE_USER_FAILURE;
+  payload: DeleteUserFailurePayload;
+};
+
 export type UsersActions =
   | GetAllUsersRequest
   | GetAllUsersSuccess
@@ -181,4 +211,7 @@ export type UsersActions =
   | UpdateUserFailure
   | GetOneUserRequest
   | GetOneUserSuccess
-  | GetOneUserFailure;
+  | GetOneUserFailure
+  | DeleteUserRequest
+  | DeleteUserSuccess
+  | DeleteUserFailure;

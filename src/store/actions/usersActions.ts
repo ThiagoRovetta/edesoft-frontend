@@ -1,6 +1,9 @@
 import {
   CreateUserFailurePayload,
   CreateUserSuccessPayload,
+  DeleteUserFailurePayload,
+  DeleteUserRequestPayload,
+  DeleteUserSuccessPayload,
   GetAllUsersFailurePayload,
   GetAllUsersSuccessPayload,
   GetOneUserFailurePayload,
@@ -92,6 +95,27 @@ export function getOneUserSuccess(payload: GetOneUserSuccessPayload) {
 export function getOneUserFailure(payload: GetOneUserFailurePayload) {
   return {
     type: usersActionsTypes.GET_ONE_USER_FAILURE,
+    payload
+  };
+}
+
+export function deleteUserRequest(payload: DeleteUserRequestPayload) {
+  return {
+    type: usersActionsTypes.DELETE_USER_REQUEST,
+    payload
+  };
+}
+
+export function deleteUserSuccess(payload: DeleteUserSuccessPayload) {
+  return {
+    type: usersActionsTypes.DELETE_USER_SUCCESS,
+    payload
+  };
+}
+
+export function deleteUserFailure(payload: DeleteUserFailurePayload) {
+  return {
+    type: usersActionsTypes.DELETE_USER_FAILURE,
     payload
   };
 }

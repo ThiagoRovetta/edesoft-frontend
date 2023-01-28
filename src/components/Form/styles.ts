@@ -43,6 +43,10 @@ export const FormGroup = styled.div`
     font-size: 1.2rem;
 
     padding: 0.5rem;
+
+    &:disabled {
+      background: #eee;
+    }
   }
 `;
 

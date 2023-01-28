@@ -9,11 +9,13 @@ import {
   updateUserSuccess,
   updateUserFailure,
   getOneUserSuccess,
-  getOneUserFailure
+  getOneUserFailure,
+  deleteUserSuccess,
+  deleteUserFailure
 } from '../actions/usersActions';
 import { setLoading } from '../actions/loadingActions';
 import { CreateUserRequest, GetOneUserRequest, UpdateUserRequest, User, usersActionsTypes } from '../../types';
-import { getAllUsers, addUser, editUser, getOneUser } from '../../services/users';
+import { getAllUsers, addUser, editUser, getOneUser, deleteUser } from '../../services/users';
 
 function* getAllUsersSaga() {
   try {
@@ -71,7 +73,6 @@ function* updateUserSaga({ payload }: UpdateUserRequest) {
     yield put(setLoading(true));
 
     const response: AxiosResponse<Omit<User, 'id'>> = yield call(editUser, payload.id, payload.data);
-
     yield put(
       updateUserSuccess({
         user: {
@@ -97,13 +98,21 @@ function* getOneUserSaga({ payload }: GetOneUserRequest) {
   try {
     yield put(setLoading(true));
 
-    const response: AxiosResponse<User> = yield call(getOneUser, payload.id);
+    const response: AxiosResponse<User | null> = yield call(getOneUser, payload.id);
 
-    yield put(
-      getOneUserSuccess({
-        user: response.data
-      })
-    );
+    if (response.data === null) {
+      yield put(
+        getOneUserFailure({
+          error: 'Usuário não encontrado!'
+        })
+      );
+    } else {
+      yield put(
+        getOneUserSuccess({
+          user: response.data
+        })
+      );
+    }
 
     yield put(setLoading(false));
   } catch (error: any) {
@@ -117,6 +126,38 @@ function* getOneUserSaga({ payload }: GetOneUserRequest) {
   }
 }
 
+function* deleteUserSaga({ payload }: UpdateUserRequest) {
+  try {
+    yield put(setLoading(true));
+
+    const response: AxiosResponse<User | null> = yield call(deleteUser, payload.id);
+
+    if (response.data === null) {
+      yield put(
+        deleteUserFailure({
+          error: 'Usuário não encontrado!'
+        })
+      );
+    } else {
+      yield put(
+        deleteUserSuccess({
+          id: payload.id
+        })
+      );
+    }
+
+    yield put(setLoading(false));
+  } catch (error: any) {
+    yield put(setLoading(false));
+
+    yield put(
+      deleteUserFailure({
+        error: String(error.message)
+      })
+    );
+  }
+}
+
 function* usersSaga() {
   yield all(
     [
@@ -124,6 +165,7 @@ function* usersSaga() {
       takeLatest(usersActionsTypes.CREATE_USER_REQUEST, createUserSaga),
       takeLatest(usersActionsTypes.UPDATE_USER_REQUEST, updateUserSaga),
       takeLatest(usersActionsTypes.GET_ONE_USER_REQUEST, getOneUserSaga),
+      takeLatest(usersActionsTypes.DELETE_USER_REQUEST, deleteUserSaga),
     ]
   );
 }

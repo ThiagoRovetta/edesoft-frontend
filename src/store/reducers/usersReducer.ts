@@ -60,6 +60,22 @@ export function usersReducer(state = INITIAL_STATE, action: UsersActions) {
       draft.error = action.payload.error;
       break;
     }
+    case usersActionsTypes.DELETE_USER_REQUEST: {
+      break;
+    }
+    case usersActionsTypes.DELETE_USER_SUCCESS: {
+      const index = draft.users.findIndex(user => user.id === action.payload.id);
+
+      if (index !== -1) {
+        draft.users.splice(index, 1);
+      }
+
+      break;
+    }
+    case usersActionsTypes.DELETE_USER_FAILURE: {
+      draft.error = action.payload.error;
+      break;
+    }
     default:
       return {
         ...state

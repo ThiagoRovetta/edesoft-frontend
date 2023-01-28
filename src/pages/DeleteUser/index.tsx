@@ -1,7 +1,6 @@
 import { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useLocation, useParams } from 'react-router-dom';
-import { toast } from 'react-toastify';
 
 import { Form } from '../../components/Form';
 import { getOneUserRequest, getOneUserSuccess } from '../../store/actions/usersActions';
@@ -9,7 +8,7 @@ import { RootState } from '../../store/reducers/rootReducer';
 import { User } from '../../types';
 import { Container } from './styles';
 
-export function EditUser() {
+export function DeleteUser() {
   const location = useLocation();
   const { id } = useParams();
 
@@ -29,17 +28,13 @@ export function EditUser() {
     }
   }, []);
 
-  useEffect(() => {
-    toast.error(error);
-  }, [error]);
-
   if (currentUser === null) {
     return null;
   }
 
   return (
     <Container>
-      <Form mode='edit' user={currentUser} />
+      <Form mode='delete' user={currentUser} />
     </Container>
   );
 }

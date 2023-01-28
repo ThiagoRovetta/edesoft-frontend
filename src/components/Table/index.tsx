@@ -53,7 +53,9 @@ export function Table({ users }: TableProps) {
                 }}>
                   <BiEdit />
                 </Link>
-                <Link to="/delete_user">
+                <Link to={`/delete_user/${user.id}`} state={{
+                  user: user
+                }}>
                   <MdDeleteOutline />
                 </Link>
               </ActionsContainer>

@@ -12,6 +12,7 @@ import { ListUsers } from './pages/ListUsers';
 import { AddUser } from './pages/AddUser';
 import { NotFound } from './pages/NotFound';
 import { EditUser } from './pages/EditUser';
+import { DeleteUser } from './pages/DeleteUser';
 
 export function App() {
   return (
@@ -25,6 +26,7 @@ export function App() {
             <Route index element={<ListUsers />} />
             <Route path="add_user" element={<AddUser />} />
             <Route path="edit_user/:id" element={<EditUser />} />
+            <Route path="delete_user/:id" element={<DeleteUser />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>

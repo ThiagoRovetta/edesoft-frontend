@@ -5,7 +5,7 @@ import { SubmitHandler, FormHandles } from '@unform/core';
 
 import { ActionsContainer, Container, FormGroup, FormInputs } from './styles';
 import { Input } from '../Input';
-import { createUserRequest, updateUserRequest } from '../../store/actions/usersActions';
+import { createUserRequest, deleteUserRequest, updateUserRequest } from '../../store/actions/usersActions';
 import { User } from '../../types';
 
 interface FormData {
@@ -57,10 +57,9 @@ export function Form({ mode, user = undefined }: FormProps) {
   };
 
   const handleSubmitDeleteMode: SubmitHandler<FormData> = data => {
-    console.log('formRef', formRef);
-    console.log('data', data);
-
-    dispatch(createUserRequest(data));
+    dispatch(deleteUserRequest({
+      id: user!.id
+    }));
 
     navigate('/');
   };
