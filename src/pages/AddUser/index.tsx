@@ -4,7 +4,7 @@ import { Container } from './styles';
 export function AddUser() {
   return (
     <Container>
-      <Form />
+      <Form mode='add' />
     </Container>
   );
 }

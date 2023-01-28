@@ -48,7 +48,9 @@ export function Table({ users }: TableProps) {
             <td>{user.phone}</td>
             <td>
               <ActionsContainer>
-                <Link to="/edit_user">
+                <Link to={`/edit_user/${user.id}`} state={{
+                  user: user
+                }}>
                   <BiEdit />
                 </Link>
                 <Link to="/delete_user">

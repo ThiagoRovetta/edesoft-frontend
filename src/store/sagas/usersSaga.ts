@@ -5,11 +5,15 @@ import {
   getAllUsersSuccess,
   getAllUsersFailure,
   createUserSuccess,
-  createUserFailure
+  createUserFailure,
+  updateUserSuccess,
+  updateUserFailure,
+  getOneUserSuccess,
+  getOneUserFailure
 } from '../actions/usersActions';
 import { setLoading } from '../actions/loadingActions';
-import { CreateUserRequest, User, usersActionsTypes } from '../../types';
-import { getAllUsers, addUser } from '../../services/users';
+import { CreateUserRequest, GetOneUserRequest, UpdateUserRequest, User, usersActionsTypes } from '../../types';
+import { getAllUsers, addUser, editUser, getOneUser } from '../../services/users';
 
 function* getAllUsersSaga() {
   try {
@@ -39,10 +43,7 @@ function* createUserSaga(payload: CreateUserRequest) {
   try {
     yield put(setLoading(true));
 
-    payload.payload.password = 'sfdfjnsdfjks';
-
     const response: AxiosResponse<Pick<User, 'id'>> = yield call(addUser, payload.payload);
-    console.log('response', response);
 
     yield put(
       createUserSuccess({
@@ -65,11 +66,64 @@ function* createUserSaga(payload: CreateUserRequest) {
   }
 }
 
+function* updateUserSaga({ payload }: UpdateUserRequest) {
+  try {
+    yield put(setLoading(true));
+
+    const response: AxiosResponse<Omit<User, 'id'>> = yield call(editUser, payload.id, payload.data);
+
+    yield put(
+      updateUserSuccess({
+        user: {
+          id: payload.id,
+          ...response.data
+        }
+      })
+    );
+
+    yield put(setLoading(false));
+  } catch (error: any) {
+    yield put(setLoading(false));
+
+    yield put(
+      updateUserFailure({
+        error: String(error.message)
+      })
+    );
+  }
+}
+
+function* getOneUserSaga({ payload }: GetOneUserRequest) {
+  try {
+    yield put(setLoading(true));
+
+    const response: AxiosResponse<User> = yield call(getOneUser, payload.id);
+
+    yield put(
+      getOneUserSuccess({
+        user: response.data
+      })
+    );
+
+    yield put(setLoading(false));
+  } catch (error: any) {
+    yield put(setLoading(false));
+
+    yield put(
+      getOneUserFailure({
+        error: String(error.message)
+      })
+    );
+  }
+}
+
 function* usersSaga() {
   yield all(
     [
       takeLatest(usersActionsTypes.GET_ALL_USERS_REQUEST, getAllUsersSaga),
       takeLatest(usersActionsTypes.CREATE_USER_REQUEST, createUserSaga),
+      takeLatest(usersActionsTypes.UPDATE_USER_REQUEST, updateUserSaga),
+      takeLatest(usersActionsTypes.GET_ONE_USER_REQUEST, getOneUserSaga),
     ]
   );
 }

@@ -55,11 +55,18 @@ export enum usersActionsTypes {
   CREATE_USER_REQUEST = 'CREATE_USER_REQUEST',
   CREATE_USER_SUCCESS = 'CREATE_USER_SUCCESS',
   CREATE_USER_FAILURE = 'CREATE_USER_FAILURE',
+  UPDATE_USER_REQUEST = 'UPDATE_USER_REQUEST',
+  UPDATE_USER_SUCCESS = 'UPDATE_USER_SUCCESS',
+  UPDATE_USER_FAILURE = 'UPDATE_USER_FAILURE',
+  GET_ONE_USER_REQUEST = 'GET_ONE_USER_REQUEST',
+  GET_ONE_USER_SUCCESS = 'GET_ONE_USER_SUCCESS',
+  GET_ONE_USER_FAILURE = 'GET_ONE_USER_FAILURE',
 }
 
 export interface usersState {
   users: User[];
   error: string | null;
+  currentUser: User | null;
 }
 
 export interface GetAllUsersSuccessPayload {
@@ -107,10 +114,71 @@ export type CreateUserFailure = {
   payload: CreateUserFailurePayload;
 };
 
+export interface UpdateUserRequestPayload {
+  id: number;
+  data: Omit<User, 'id'>;
+}
+
+export interface UpdateUserSuccessPayload {
+  user: User;
+}
+
+export interface UpdateUserFailurePayload {
+  error: string;
+}
+
+export interface UpdateUserRequest {
+  type: typeof usersActionsTypes.UPDATE_USER_REQUEST;
+  payload: UpdateUserRequestPayload;
+}
+
+export type UpdateUserSuccess = {
+  type: typeof usersActionsTypes.UPDATE_USER_SUCCESS;
+  payload: UpdateUserSuccessPayload;
+};
+
+export type UpdateUserFailure = {
+  type: typeof usersActionsTypes.UPDATE_USER_FAILURE;
+  payload: UpdateUserFailurePayload;
+};
+
+export interface GetOneUserRequestPayload {
+  id: number;
+}
+
+export interface GetOneUserSuccessPayload {
+  user: User;
+}
+
+export interface GetOneUserFailurePayload {
+  error: string;
+}
+
+export interface GetOneUserRequest {
+  type: typeof usersActionsTypes.GET_ONE_USER_REQUEST;
+  payload: GetOneUserRequestPayload;
+}
+
+export type GetOneUserSuccess = {
+  type: typeof usersActionsTypes.GET_ONE_USER_SUCCESS;
+  payload: GetOneUserSuccessPayload;
+};
+
+export type GetOneUserFailure = {
+  type: typeof usersActionsTypes.GET_ONE_USER_FAILURE;
+  payload: GetOneUserFailurePayload;
+};
+
 export type UsersActions =
   | GetAllUsersRequest
   | GetAllUsersSuccess
   | GetAllUsersFailure
   | CreateUserRequest
   | CreateUserSuccess
-  | CreateUserFailure;
+  | CreateUserFailure
+  | UpdateUserRequest
+  | UpdateUserSuccess
+  | UpdateUserFailure
+  | GetOneUserRequest
+  | GetOneUserSuccess
+  | GetOneUserFailure;

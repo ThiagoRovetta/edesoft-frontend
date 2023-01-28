@@ -3,6 +3,12 @@ import {
   CreateUserSuccessPayload,
   GetAllUsersFailurePayload,
   GetAllUsersSuccessPayload,
+  GetOneUserFailurePayload,
+  GetOneUserRequestPayload,
+  GetOneUserSuccessPayload,
+  UpdateUserFailurePayload,
+  UpdateUserRequestPayload,
+  UpdateUserSuccessPayload,
   User,
   usersActionsTypes,
 } from '../../types';
@@ -44,6 +50,48 @@ export function createUserSuccess(payload: CreateUserSuccessPayload) {
 export function createUserFailure(payload: CreateUserFailurePayload) {
   return {
     type: usersActionsTypes.CREATE_USER_FAILURE,
+    payload
+  };
+}
+
+export function updateUserRequest(payload: UpdateUserRequestPayload) {
+  return {
+    type: usersActionsTypes.UPDATE_USER_REQUEST,
+    payload
+  };
+}
+
+export function updateUserSuccess(payload: UpdateUserSuccessPayload) {
+  return {
+    type: usersActionsTypes.UPDATE_USER_SUCCESS,
+    payload
+  };
+}
+
+export function updateUserFailure(payload: UpdateUserFailurePayload) {
+  return {
+    type: usersActionsTypes.UPDATE_USER_FAILURE,
+    payload
+  };
+}
+
+export function getOneUserRequest(payload: GetOneUserRequestPayload) {
+  return {
+    type: usersActionsTypes.GET_ONE_USER_REQUEST,
+    payload
+  };
+}
+
+export function getOneUserSuccess(payload: GetOneUserSuccessPayload) {
+  return {
+    type: usersActionsTypes.GET_ONE_USER_SUCCESS,
+    payload
+  };
+}
+
+export function getOneUserFailure(payload: GetOneUserFailurePayload) {
+  return {
+    type: usersActionsTypes.GET_ONE_USER_FAILURE,
     payload
   };
 }

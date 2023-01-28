@@ -11,6 +11,7 @@ import { Layout } from './components/Layout';
 import { ListUsers } from './pages/ListUsers';
 import { AddUser } from './pages/AddUser';
 import { NotFound } from './pages/NotFound';
+import { EditUser } from './pages/EditUser';
 
 export function App() {
   return (
@@ -23,6 +24,7 @@ export function App() {
           <Route path="/" element={<Layout />}>
             <Route index element={<ListUsers />} />
             <Route path="add_user" element={<AddUser />} />
+            <Route path="edit_user/:id" element={<EditUser />} />
 
             <Route path="*" element={<NotFound />} />
           </Route>
